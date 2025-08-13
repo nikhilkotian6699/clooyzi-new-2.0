@@ -62,9 +62,14 @@ export default function Home() {
   const [editingId, setEditingId] = useState < string | null > (null);
 
   const fetchWorks = async () => {
-    const res = await fetch('https://clooyzi.onrender.com/api/portfolio');
-    const data = await res.json();
-    setWorks(data);
+    try {
+      const res = await fetch('https://clooyzi.onrender.com/api/portfolio');
+      const data = await res.json();
+      setWorks(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error("Failed to fetch works:", error);
+      setWorks([]); // Set to empty array on error
+    }
   };
 
   useEffect(() => {
@@ -276,7 +281,7 @@ export default function Home() {
 
           {/* Cards */}
           <div className="grid gap-8 md:grid-cols-3">
-            {works.slice(0, 3).map((work) => {
+            {Array.isArray(works) && works.slice(0, 3).map((work) => {
               const projectUrl = /^https?:\/\//i.test(work.project_link)
                 ? work.project_link
                 : `https://${work.project_link}`;
@@ -380,8 +385,7 @@ export default function Home() {
             <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-2 mt-12">
               <div className="flex flex-col space-y-4">
                 <div className="grid gap-6">
-                  <div className="flex items-center gap-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500/10">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500/10">
                       <Smartphone className="h-5 w-5 text-purple-500" />
                     </div>
                     <div className="flex flex-col">

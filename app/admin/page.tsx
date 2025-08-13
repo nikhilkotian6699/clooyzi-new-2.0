@@ -31,9 +31,14 @@ export default function AdminPage() {
   };
 
   const fetchWorks = async () => {
-    const res = await fetch('https://clooyzi.onrender.com/api/portfolio');
-    const data = await res.json();
-    setWorks(data);
+    try {
+      const res = await fetch('https://clooyzi.onrender.com/api/portfolio');
+      const data = await res.json();
+      setWorks(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error("Failed to fetch works:", error);
+      setWorks([]); // Set to empty array on error
+    }
   };
 
   useEffect(() => {
@@ -201,7 +206,7 @@ export default function AdminPage() {
       </button>
 
       <div className="space-y-6">
-        {works.map((work) => (
+        {Array.isArray(works) && works.map((work) => (
           <div key={work.id} className="border p-4 rounded space-y-3">
             {work.image_url && (
               <img

@@ -30,9 +30,10 @@ export default function OurWorksSection() {
     try {
       const res = await fetch('https://clooyzi.onrender.com/api/portfolio');
       const data = await res.json();
-      setWorks(data);
+      setWorks(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Failed to fetch works:", error);
+      setWorks([]); // Set to empty array on error
     }
   };
 
@@ -95,7 +96,7 @@ export default function OurWorksSection() {
         <h2 className="text-3xl font-bold md:text-5xl mb-10 text-white">Our Works</h2>
 
         <div className="grid gap-8 md:grid-cols-3">
-          {works.map((work) => {
+          {Array.isArray(works) && works.map((work) => {
             const projectUrl = /^https?:\/\//i.test(work.project_link)
               ? work.project_link
               : `https://${work.project_link}`;
