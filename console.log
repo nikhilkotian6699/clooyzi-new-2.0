@@ -1,0 +1,12 @@
+async function getData() {
+  try {
+    const res = await fetch("https://api.github.com/users/nikhilkotian6699/clooyzi-new-2.0");
+    const data = await res.json();
+    console.log("Fetched Data:", data); // This will show the data
+    return data;
+  } catch (error) {
+    console.error("Fetch error: anna ", error);
+  }
+}
+
+getData();
