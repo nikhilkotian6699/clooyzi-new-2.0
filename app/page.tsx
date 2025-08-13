@@ -385,7 +385,8 @@ export default function Home() {
             <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-2 mt-12">
               <div className="flex flex-col space-y-4">
                 <div className="grid gap-6">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500/10">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500/10">
                       <Smartphone className="h-5 w-5 text-purple-500" />
                     </div>
                     <div className="flex flex-col">
