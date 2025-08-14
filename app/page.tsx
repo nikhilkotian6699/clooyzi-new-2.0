@@ -100,8 +100,11 @@ export default function Home() {
             >
               About
             </Link>
-            <Link href="#works" className="hover:text-purple-700">
+            <Link href="/OurWorks" className="text-sm font-medium hover:text-purple-700">
               Our Works
+            </Link>
+            <Link href="/properties" className="text-sm font-medium hover:text-purple-700">
+              Properties
             </Link>
             <Link
               href="#testimonials"

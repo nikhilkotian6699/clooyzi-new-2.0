@@ -1,45 +1,71 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code, Smartphone, Globe, Database, ArrowRight } from "lucide-react";
-import { FaTwitter, FaLinkedin, FaInstagram, FaThreads, FaYoutube, } from "react-icons/fa6";
+import { FaTwitter, FaLinkedin, FaInstagram, FaThreads, FaYoutube } from "react-icons/fa6";
 import Link from "next/link";
 import ContactForm, { ContactFormRef } from "@/components/contact-form";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
+import PropertyCard from "@/components/property-card";
 
-interface Work {
-  id: string;
-  title: string;
-  description: string;
-  project_link: string;
-  image_url?: string;
-}
-
-export default function OurWorksSection() {
-  const [works, setWorks] = useState < Work[] > ([]);
-
-  const contactFormRef = useRef < ContactFormRef > (null);
+export default function PropertiesPage() {
+  const contactFormRef = useRef<ContactFormRef>(null);
 
   const handleClick = () => {
     contactFormRef.current?.scrollToFormAndFocus();
   };
 
-  const fetchWorks = async () => {
-    try {
-      const res = await fetch('https://clooyzi.onrender.com/api/portfolio');
-      const data = await res.json();
-      setWorks(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error("Failed to fetch works:", error);
-      setWorks([]); // Set to empty array on error
-    }
-  };
-
-  useEffect(() => {
-    fetchWorks();
-  }, []);
+  // Mock data for luxury properties
+  const properties = [
+    {
+      id: "1",
+      title: "Luxury Villa with Ocean View",
+      description: "Stunning villa featuring panoramic ocean views, infinity pool, and private beach access. Located in an exclusive gated community.",
+      price: "$5,500,000",
+      location: "Malibu, CA",
+      imageUrl: "https://images.unsplash.com/photo-1568605117036-add402c17514?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      id: "2",
+      title: "Modern Penthouse in City Center",
+      description: "Sophisticated penthouse with breathtaking city skyline views, state-of-the-art smart home technology, and concierge services.",
+      price: "$3,200,000",
+      location: "New York, NY",
+      imageUrl: "https://images.unsplash.com/photo-1580582932707-52c5df755ebf?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      id: "3",
+      title: "Secluded Mountain Retreat",
+      description: "Escape to this serene mountain retreat, offering unparalleled privacy, expansive natural surroundings, and custom-built luxury.",
+      price: "$2,800,000",
+      location: "Aspen, CO",
+      imageUrl: "https://images.unsplash.com/photo-1570129476815-ba6054618f2d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      id: "4",
+      title: "Historic Estate with Vineyards",
+      description: "A magnificent historic estate complete with sprawling vineyards, a grand manor house, and a private wine cellar.",
+      price: "$12,000,000",
+      location: "Napa Valley, CA",
+      imageUrl: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      id: "5",
+      title: "Waterfront Mansion with Yacht Dock",
+      description: "Exclusive waterfront property featuring a private yacht dock, multiple pools, and breathtaking views of the bay.",
+      price: "$8,900,000",
+      location: "Miami, FL",
+      imageUrl: "https://images.unsplash.com/photo-1592595896616-c37162277985?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+    {
+      id: "6",
+      title: "Desert Oasis Modern Home",
+      description: "Architecturally significant modern home nestled in a desert oasis, offering unparalleled tranquility and stunning natural beauty.",
+      price: "$4,100,000",
+      location: "Palm Springs, CA",
+      imageUrl: "https://images.unsplash.com/photo-1564013799907-f0f595804fcd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    },
+  ];
 
   return (
     <>
@@ -47,7 +73,7 @@ export default function OurWorksSection() {
       <header className="sticky top-0 z-50 w-full bg-gray-900 backdrop-blur-md border-b border-gray-800">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
-            <Code className="h-6 w-6 text-purple-500 " />
+            <Code className="h-6 w-6 text-purple-500" />
             <Link href="/" className="text-xl font-bold bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent">
               Clooyzi
             </Link>
@@ -65,10 +91,10 @@ export default function OurWorksSection() {
             >
               About
             </Link>
-            <Link href="#works" className="hover:text-purple-700">
+            <Link href="/OurWorks" className="text-sm font-medium hover:text-purple-700">
               Our Works
             </Link>
-            <Link href="/properties" className="text-sm font-medium hover:text-purple-700">
+            <Link href="/properties" className="text-sm font-medium text-purple-700">
               Properties
             </Link>
             <Link
@@ -93,49 +119,25 @@ export default function OurWorksSection() {
         </div>
       </header>
 
-
-      {/* Our Works */}
+      {/* Properties Section */}
       <section className="bg-gray-900 py-16 px-6 md:px-16 text-center">
-        <h2 className="text-3xl font-bold md:text-5xl mb-10 text-white">Our Works</h2>
+        <h2 className="text-3xl font-bold md:text-5xl mb-10 text-white">Luxury Properties</h2>
+        <p className="text-gray-400 max-w-[700px] mx-auto text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed mb-12">
+          Discover exquisite homes and exclusive listings tailored for the discerning buyer.
+        </p>
 
-        <div className="grid gap-8 md:grid-cols-3">
-          {Array.isArray(works) && works.map((work) => {
-            const projectUrl = /^https?:\/\//i.test(work.project_link)
-              ? work.project_link
-              : `https://${work.project_link}`;
-
-            return (
-              <Card
-                key={work.id}
-                className="bg-gray-950 border border-gray-800 text-white flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-              >
-                <CardHeader>
-                  {work.image_url && (
-                    <img
-                      src={work.image_url}
-                      alt={work.title}
-                      className="w-full h-48 object-cover rounded mb-4"
-                    />
-                  )}
-                  <CardTitle className="text-purple-400">{work.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-col flex-1">
-                  <CardDescription className="text-gray-300 mb-4">{work.description}</CardDescription>
-                  {work.project_link && (
-                    <a
-                      href={projectUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block ml-6 font-bold text-white border border-gray-800 bg-gray-900 hover:bg-gray-800 transition-all duration-300 px-6 py-2 rounded group"
-                    >
-                      Visit Project
-                      <ArrowRight className="h-4 w-4 ml-2 inline-block transition-transform group-hover:translate-x-1" />
-                    </a>
-                  )}
-                </CardContent>
-              </Card>
-            );
-          })}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {properties.map((property) => (
+            <PropertyCard
+              key={property.id}
+              id={property.id}
+              title={property.title}
+              description={property.description}
+              price={property.price}
+              location={property.location}
+              imageUrl={property.imageUrl}
+            />
+          ))}
         </div>
       </section>
 
@@ -218,7 +220,6 @@ export default function OurWorksSection() {
           </div>
         </div>
       </section>
-
 
       {/* Footer */}
       <footer className="bg-black border-t border-gray-800 py-6 md:py-8">

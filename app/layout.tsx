@@ -3,6 +3,7 @@ import "@/app/globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Analytics } from '@vercel/analytics/react';
+import { Toaster } from "@/components/ui/toaster"; // Import Toaster
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -24,12 +25,9 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}
           <Analytics />
+          <Toaster /> {/* Add Toaster here */}
         </ThemeProvider>
       </body>
     </html>
   )
 }
-
-
-
-import './globals.css'
